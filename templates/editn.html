@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Редактор новости</title>
+		<link href="./../../files/admin.css" rel="stylesheet">
+	</head>
+    	<body link="black" vlink="#000000" alink="#000000">
+		<header><div class="container">Редактор новости
+		</div><a href="/admin/news">Новости</a></header>
+		<div class="container">
+			<form method="post">
+				<div><input placeholder="Название" type="text" name="title" required="required" value="{{.news.Title}}"></div>
+				<div><textarea placeholder="Текст" rows="5" cols="30" name="message" required="required">{{.news.Message}}</textarea></div>
+				<div><input type="hidden" name="id" value="{{.news.Id}}" />
+					<input type="hidden" name="short" value="{{.news.Short}}" />
+					<input type="submit" value="Сохранить"></div>
+			</form>
+			{{if .ok}}
+				<div class="ok">
+					{{.ok}}
+				</div>
+			{{end}}
+			{{if .err}}
+				<div class="err">
+					{{.err}}
+				</div>
+			{{end}}
+		</div>
+	</body>
+</html>

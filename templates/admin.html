@@ -1,0 +1,27 @@
+{{template "headeradmin"}}
+		<div class="container">
+			<h2>Список отзывов</h2>
+			<table>
+			<tr>
+				<th>Имя</th>
+				<th>Тема</th>
+				<th>Почта</th>
+				<th>Сообщение</th>
+			</tr>
+			{{if .feedbacks}}
+				{{range .feedbacks}}
+					<tr>
+						<td>{{.Name}}</td>
+						<td>{{.Title}}</td>
+						<td>{{.Mail}}</td>
+						<td>{{.Message}}</td>
+					</tr>
+				{{end}}
+			{{else}}
+				<tr>
+					<td colspan=3>Нет записей</td>
+				</tr>
+			{{end}}
+			</table>
+		</div>
+{{template "footeradmin"}}

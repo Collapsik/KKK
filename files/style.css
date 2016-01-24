@@ -1,0 +1,57 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+header {
+	background: url("header.jpg") bottom;
+	padding: 50px;
+	color: rgba(255, 255, 255, 0.7);
+	font-size: 3rem;
+}
+.container {
+	max-width: 1024px;
+	margin: 0 auto;
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px; 
+}
+form>div {
+	margin-top: 1rem;
+	font-size: 1rem;
+}
+input, textarea {
+	padding: 0.5rem;
+}
+.err {
+	background: #fee;
+	color: #873A3A;
+	padding: 1.5rem;
+}
+.ok {
+	background: #efe;
+	color: #115F17;
+	padding: 1.5rem;
+}
+@font-face {
+    font-family:'Abela';
+    src:url('bpg_rioni_arial.otf');
+}
+h3{
+	font-family:'Abela';
+}
+a { 
+    text-decoration: none; 
+} 
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:0px; 
+}
+

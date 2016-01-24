@@ -1,0 +1,19 @@
+{{ define "header" }}
+<html>
+
+<head>
+		<title>{{.title}}</title>
+		<link href="files/style.css" rel="stylesheet">
+	</head>
+    	<body link="red" vlink="#000000" alink="#000000">
+		<header>
+		<div class="container">{{.title}}
+		
+		</div></header>
+		<nav>
+		<h3>
+		<a href="/login">Вход</a><br>
+		<a href="/news">Новости</a><br>
+		<a href="/page/Contacts/">Контакты</a></h3>
+		</nav>
+{{ end }}

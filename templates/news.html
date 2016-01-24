@@ -1,0 +1,27 @@
+{{template "headeradmin"}}
+		<div class="container">
+			<h3>Список новостей</h3>
+			<table>
+			<tr>
+				<th>Название</th>
+				<th>Сообщение</th>
+				<th>Редактировать</th>
+				<th>Удаление</th>
+			</tr>
+			{{if .news}}
+				{{range .news}}
+					<tr>
+						<td>{{.Title}}</td>
+						<td>{{.Short}} <a href="/news/{{.Id}}">Читать далее</a></td>
+						<td><a href="/admin/newsedit/{{.Id}}">Редактировать</a></td>
+						<td><a href="/admin/newsdel/{{.Id}}">Удалить</a></td>
+					</tr>
+				{{end}}
+			{{else}}
+				<tr>
+					<td colspan=3>Нет записей</td>
+				</tr>
+			{{end}}
+			</table>
+		</div>
+{{template "footeradmin"}}

@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Новости</title>
+		<link href="/files/style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header><div class="container">Новости</div></header>
+		<nav>
+		<h3>
+		<a href="/">Главная</a><br></h3>
+		</nav>
+		<style>
+		@font-face {
+    		font-family:'Abela';
+    		src:url('bpg_rioni_arial.otf');
+			}
+			h3{
+				font-family:'Abela';
+			}
+			 a { 
+    			text-decoration: none; 
+   			} 
+   			h1{	font-size: 200%;
+    			background: white;
+  			 }
+  			 h4{	font-size: 100%;
+    			background: white; 
+  			 }
+		</style>
+		<div class="container">
+			{{if .news}}
+				{{range .news}}
+						<h1>{{.Title}}</h1>
+						<h4>{{.Short}} <a href="/news/{{.Id}}">Читать далее</a></h4>
+				{{end}}
+			{{else}}
+					<td colspan=3>Нет записей</td>
+			{{end}}
+		</div>
+		<footer>
+	The Go Programming Language 2016 + .html, .css
+	</footer>
+	</body>
+</html>

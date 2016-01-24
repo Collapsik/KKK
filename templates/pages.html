@@ -1,0 +1,37 @@
+{{template "headeradmin"}}
+		<div class="container">
+			<h2>Список страниц</h2>
+			<table>
+			<tr>
+				<th>Название</th>
+				<th>Сообщение</th>
+				<th>Редактировать</th>
+				<th>Удаление</th>
+			</tr>
+			{{if .page}}
+				{{range .page}}
+					<tr>
+						<td><a href="/page/{{.Title}}">{{.Title}}</a></td>
+						<td>{{.Message}}</td>
+						<td><a href="/admin/pageedit/{{.Id}}">Редактировать</a></td>
+						<td><a href="/admin/pagedel/{{.Id}}">Удалить</a></td>
+					</tr>
+				{{end}}
+			{{else}}
+				<tr>
+					<td colspan=3>Нет записей</td>
+				</tr>
+			{{end}}
+			</table>
+			{{if .ok}}
+				<div class="ok">
+					{{.ok}}
+				</div>
+			{{end}}
+			{{if .err}}
+				<div class="err">
+					{{.err}}
+				</div>
+			{{end}}
+		</div>
+{{template "footeradmin"}}

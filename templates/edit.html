@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Редактор страницы</title>
+		<link href="./../../files/admin.css" rel="stylesheet">
+	</head>
+    	<body link="black" vlink="#000000" alink="#000000">
+		<header><div class="container">Редактор страницы
+		</div> <a href="/admin/pages">Страницы</a></header>
+		<div class="container">
+			<form method="post">
+				<div><input placeholder="Название" type="text" name="title" required="required" value="{{.page.Title}}"></div>
+				<div><textarea placeholder="Текст" rows="5" cols="30" name="message" required="required">{{.page.Message}}</textarea></div>
+				<div><input type="hidden" name="id" value="{{.page.Id}}" />
+					<input type="submit" value="Сохранить"></div>
+
+			</form>
+			{{if .ok}}
+				<div class="ok">
+					{{.ok}}
+				</div>
+			{{end}}
+			{{if .err}}
+				<div class="err">
+					{{.err}}
+				</div>
+			{{end}}
+		</div>
+	</body>
+</html>
