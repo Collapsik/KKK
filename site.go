@@ -4,25 +4,22 @@ import (
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2"
 	"html/template"
-	"kkk/news"
-	"kkk/pages"
-	"kkk/structs"
 )
 
 func main() {
 
-	structs.Login = "Admin"
-	structs.Password = structs.Hash("secret")
+	Login = "Admin"
+	Password = Hash("secret")
 
 	session, err := mgo.Dial("localhost") //mongodb connect
 	if err != nil {
 		panic(err)
 	}
 
-	structs.NewsSession = session.DB("mydb6").C("news")
-	structs.PageSession = session.DB("mydb6").C("page")
-	structs.UserSession = session.DB("mydb6").C("user")
-	structs.FeedbackSession = session.DB("mydb6").C("feedbacks")
+	NewsSession = session.DB("mydb6").C("news")
+	PageSession = session.DB("mydb6").C("page")
+	UserSession = session.DB("mydb6").C("user")
+	FeedbackSession = session.DB("mydb6").C("feedbacks")
 
 	r := gin.Default()
 	tmpl, err := template.ParseFiles("header.html", "footer.html", "headeradmin.html", "footeradmin.html")
@@ -31,47 +28,47 @@ func main() {
 	r.LoadHTMLGlob("templates/*")
 
 	admin := r.Group("/admin")
-	admin.Use(structs.LoginMiddleware)
+	admin.Use(LoginMiddleware)
 
-	r.GET("/", pages.GetIndex)
+	r.GET("/", GetIndex)
 
-	r.POST("/", pages.PostIndex)
+	r.POST("/", PostIndex)
 
-	admin.GET("/", pages.GetAdmin)
+	admin.GET("/", GetAdmin)
 
-	admin.GET("/newpage", pages.GetAdminNewPage)
+	admin.GET("/newpage", GetAdminNewPage)
 
-	admin.POST("/newpage", pages.PostAdminNewPage)
+	admin.POST("/newpage", PostAdminNewPage)
 
-	admin.GET("/pages", pages.GetAdminPages)
+	admin.GET("/pages", GetAdminPages)
 
-	admin.GET("/newnews", news.GetAdminNewNews)
+	admin.GET("/newnews", GetAdminNewNews)
 
-	admin.POST("/newnews", news.PostAdminNewNews)
+	admin.POST("/newnews", PostAdminNewNews)
 
-	admin.GET("/news", news.GetAdminNews)
+	admin.GET("/news", GetAdminNews)
 
-	admin.GET("/newsedit/:kkk", news.GetAdminNewsEdit)
+	admin.GET("/newsedit/:kkk", GetAdminNewsEdit)
 
-	admin.POST("/newsedit/:kkk", news.PostAdminNewsEdit)
+	admin.POST("/newsedit/:kkk", PostAdminNewsEdit)
 
-	r.GET("/news/:kkk", news.GetNews)
+	r.GET("/news/:kkk", GetNews)
 
-	r.GET("/page/:kkk", pages.GetPage)
+	r.GET("/page/:kkk", GetPage)
 
-	admin.GET("/pagedel/:kkk", pages.GetAdminPageDel)
+	admin.GET("/pagedel/:kkk", GetAdminPageDel)
 
-	admin.GET("/pageedit/:kkk", pages.GetAdminPageEdit)
+	admin.GET("/pageedit/:kkk", GetAdminPageEdit)
 
-	admin.POST("/pageedit/:kkk", pages.PostAdminPageEdit)
+	admin.POST("/pageedit/:kkk", PostAdminPageEdit)
 
-	r.GET("/news", news.GetNewsAll)
+	r.GET("/news", GetNewsAll)
 
-	r.GET("/login", pages.GetLogin)
+	r.GET("/login", GetLogin)
 
-	r.POST("/login", pages.PostLogin)
+	r.POST("/login", PostLogin)
 
-	admin.GET("/newsdel/:kkk", news.GetAdminDelNews)
+	admin.GET("/newsdel/:kkk", GetAdminDelNews)
 
 	r.Run(":8080")
 }

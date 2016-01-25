@@ -1,9 +1,8 @@
-package news
+package main
 
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"kkk/structs"
 	"strconv"
 )
 
@@ -12,18 +11,18 @@ func GetAdminNewNews(c *gin.Context) {
 }
 
 func PostAdminNewNews(c *gin.Context) {
-	nw := structs.News{}
+	nw := News{}
 	ret := gin.H{}
 	if err := c.Bind(&nw); err != nil {
 		ret["err"] = "Упс, ошибка: " + err.Error()
 	} else {
-		nw.Id = structs.GenId(structs.NewsSession)
+		nw.Id = GenId(NewsSession)
 		if len(nw.Message) < 300 {
 			nw.Short = nw.Message
 		} else {
 			nw.Short = nw.Message[:300]
 		}
-		if err := structs.NewsSession.Insert(nw); err != nil {
+		if err := NewsSession.Insert(nw); err != nil {
 			ret["err"] = "Ошибка базы данных" + err.Error()
 		} else {
 			ret["ok"] = "Новость создана!"
@@ -34,27 +33,27 @@ func PostAdminNewNews(c *gin.Context) {
 }
 
 func GetAdminNews(c *gin.Context) {
-	nwe := []structs.News{}
-	structs.NewsSession.Find(gin.H{}).All(&nwe)
+	nwe := []News{}
+	NewsSession.Find(gin.H{}).All(&nwe)
 	c.HTML(200, "news.html", gin.H{"news": nwe})
 }
 
 func GetAdminDelNews(c *gin.Context) {
 	i, _ := strconv.Atoi(c.Param("kkk"))
-	structs.NewsSession.Remove(gin.H{"id": i})
+	NewsSession.Remove(gin.H{"id": i})
 	c.Redirect(302, "./../news")
 }
 
 func GetAdminNewsEdit(c *gin.Context) {
-	nw := structs.News{}
+	nw := News{}
 	i, _ := strconv.Atoi(c.Param("kkk"))
-	structs.NewsSession.Find(gin.H{"id": i}).One(&nw)
+	NewsSession.Find(gin.H{"id": i}).One(&nw)
 	fmt.Println(nw.Short, nw.Id)
 	c.HTML(200, "editn.html", gin.H{"news": nw})
 }
 
 func PostAdminNewsEdit(c *gin.Context) {
-	nw := structs.News{}
+	nw := News{}
 	ret := gin.H{}
 	if err := c.Bind(&nw); err != nil {
 
@@ -64,7 +63,7 @@ func PostAdminNewsEdit(c *gin.Context) {
 	} else {
 		nw.Short = nw.Message[:300]
 	}
-	if err := structs.NewsSession.Update(gin.H{"id": nw.Id}, gin.H{"id": nw.Id, "title": nw.Title, "message": nw.Message, "short": nw.Short}); err != nil {
+	if err := NewsSession.Update(gin.H{"id": nw.Id}, gin.H{"id": nw.Id, "title": nw.Title, "message": nw.Message, "short": nw.Short}); err != nil {
 		ret["err"] = "Ошибка базы данных" + err.Error()
 	} else {
 		ret["ok"] = "Новость отредактирована!"
@@ -73,14 +72,14 @@ func PostAdminNewsEdit(c *gin.Context) {
 }
 
 func GetNews(c *gin.Context) {
-	nw := structs.News{}
+	nw := News{}
 	i, _ := strconv.Atoi(c.Param("kkk"))
-	structs.NewsSession.Find(gin.H{"id": i}).One(&nw)
+	NewsSession.Find(gin.H{"id": i}).One(&nw)
 	c.HTML(200, "temp.html", gin.H{"news": nw})
 }
 
 func GetNewsAll(c *gin.Context) {
-	nw := []structs.News{}
-	structs.NewsSession.Find(gin.H{}).Sort("-id").Limit(20).All(&nw)
+	nw := []News{}
+	NewsSession.Find(gin.H{}).Sort("-id").Limit(20).All(&nw)
 	c.HTML(200, "news20.html", gin.H{"news": nw})
 }
